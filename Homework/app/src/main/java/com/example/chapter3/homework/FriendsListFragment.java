@@ -50,7 +50,7 @@ public class FriendsListFragment extends Fragment {
 
 
     private void setupFriendList() {
-        String[] friends = {"Friend 1", "Friend 2", "Friend 3", "Friend 4", "Friend 5"};
+        String[] friends = {"Friend 1", "Friend 2", "Friend 3", "Friend 4", "Friend 5","Friend 6","Friend 7","Friend 8","Friend 9"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, friends);
         listView.setAdapter(adapter);
