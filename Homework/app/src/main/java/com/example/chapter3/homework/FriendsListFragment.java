@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,7 +22,7 @@ public class FriendsListFragment extends Fragment {
     private Handler handler = new Handler();
     private View rootView;
     private LottieAnimationView lottieAnimationView;
-
+    private ListView listView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,9 +34,14 @@ public class FriendsListFragment extends Fragment {
         fadeInAnimation(lottieAnimationView);  // 应用淡入效果
         lottieAnimationView.playAnimation();
 
-        // After 5 seconds, apply fade out effect and then show the friend list
+        listView = rootView.findViewById(R.id.lvItems);
+        listView.setVisibility(View.INVISIBLE);
+
         handler.postDelayed(() -> {
             fadeOutAnimation(lottieAnimationView); // 应用淡出效果
+            listView.setVisibility(View.VISIBLE);
+            fadeInAnimation(listView); // 应用淡入效果
+            setupFriendList();
         }, 5000);
 
         return rootView;
@@ -44,12 +50,10 @@ public class FriendsListFragment extends Fragment {
 
 
     private void setupFriendList() {
-        ListView listView = rootView.findViewById(R.id.lvItems);
         String[] friends = {"Friend 1", "Friend 2", "Friend 3", "Friend 4", "Friend 5"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, friends);
         listView.setAdapter(adapter);
-        listView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -59,28 +63,15 @@ public class FriendsListFragment extends Fragment {
     }
     private void fadeInAnimation(View view) {
         AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
-        animation.setDuration(1000); // 动画时长 1000 毫秒（1秒）
-        animation.setFillAfter(true); // 动画结束后保留结束状态
+        animation.setDuration(1000);
+        animation.setFillAfter(true);
         view.startAnimation(animation);
     }
 
     private void fadeOutAnimation(View view) {
         AlphaAnimation animation = new AlphaAnimation(1.0f, 0.0f);
-        animation.setDuration(1000); // 动画时长 1000 毫秒（1秒）
-        animation.setFillAfter(true); // 动画结束后保留结束状态
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {}
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                view.setVisibility(View.GONE); // 动画结束后设置视图为GONE
-                setupFriendList(); // 开始设置好友列表
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
+        animation.setDuration(1000);
+        animation.setFillAfter(true);
         view.startAnimation(animation);
     }
 }
