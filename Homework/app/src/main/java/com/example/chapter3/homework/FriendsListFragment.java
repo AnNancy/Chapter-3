@@ -31,16 +31,16 @@ public class FriendsListFragment extends Fragment {
         // Setup Lottie Animation View
         lottieAnimationView = rootView.findViewById(R.id.animation_view);
         lottieAnimationView.setVisibility(View.VISIBLE);
-        fadeInAnimation(lottieAnimationView);  // 应用淡入效果
+        fadeInAnimation(lottieAnimationView);
         lottieAnimationView.playAnimation();
 
         listView = rootView.findViewById(R.id.lvItems);
         listView.setVisibility(View.INVISIBLE);
 
         handler.postDelayed(() -> {
-            fadeOutAnimation(lottieAnimationView); // 应用淡出效果
+            fadeOutAnimation(lottieAnimationView);
             listView.setVisibility(View.VISIBLE);
-            fadeInAnimation(listView); // 应用淡入效果
+            fadeInAnimation(listView);
             setupFriendList();
         }, 5000);
 
@@ -59,7 +59,7 @@ public class FriendsListFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        handler.removeCallbacksAndMessages(null); // Clean up handler
+        handler.removeCallbacksAndMessages(null);
     }
     private void fadeInAnimation(View view) {
         AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
